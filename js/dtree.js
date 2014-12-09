@@ -65,10 +65,9 @@
                     $.fn.dTree.set_cookie("dTree", JSON.stringify(obect_index));
                 }
                 
-                if(settings.closeSameLevel)
-                {
+            	if (settings.closeSameLevel && $(this).hasClass('plus')) {
                     $.fn.dTree.close_same_level($(this));
-                }
+            	}
                 $.fn.dTree.set_icons($(this));
                 $(this).parent().children('ul:first').toggle(250);
             });
@@ -115,13 +114,10 @@
     
     $.fn.dTree.close_same_level = function($selected)
     {
-        var $same_level = $selected.parent().siblings(".folder-group").children('ul:first'); 
+        var $tree = $selected.parent().parent();
 
-        if($same_level.is(':visible')) 
-        {
-            $same_level.toggle(250);
-            $.fn.dTree.set_icons($selected.parent().siblings(".folder-group").children('span:first'));    
-        }
+        $tree.find(">.folder-group:has(span.minus)>ul:visible").toggle(250);
+        $.fn.dTree.set_icons($tree.find(">.folder-group>span.minus"));
     };
     
     $.fn.dTree.tree_first_element = function($selected)
